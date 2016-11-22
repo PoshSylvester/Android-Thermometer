@@ -1,4 +1,4 @@
-package com.xcz1899.thermometer;
+package com.xcz1899.thermometerlib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.xcz1899.thermometer", appContext.getPackageName());
+        assertEquals("com.xcz1899.thermometerlib.test", appContext.getPackageName());
     }
 }

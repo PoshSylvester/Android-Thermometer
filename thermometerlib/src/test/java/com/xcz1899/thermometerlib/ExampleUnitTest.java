@@ -1,4 +1,4 @@
-package com.xcz1899.thermometer;
+package com.xcz1899.thermometerlib;
 
 import org.junit.Test;
 

@@ -1,10 +1,11 @@
-package com.xcz1899.thermometer;
+package com.xcz1899.thermometerlib;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -75,8 +76,8 @@ public class Thermometer extends View {
     /**
      * 初始化
      *
-     * @param context Context
-     * @param attrs   AttributeSet
+     * @param context Context参数
+     * @param attrs   AttributeSet参数
      */
     private void init(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Thermometer);
@@ -115,11 +116,11 @@ public class Thermometer extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //View的长宽
-        float height = getHeight();
-        float width = getWidth();
+        int height = getHeight();
+        int width = getWidth();
 
         //底部圆形的圆心位置
-        float CircleCenterX = width / 2;
+        int CircleCenterX = width / 2;
         float CircleCenterY = height - outerCircleRadius;
 
         float outerStartY = 0;  //outer的起始Y坐标
@@ -131,12 +132,23 @@ public class Thermometer extends View {
         float innerStartY = innerEffectStartY + (currentTemp - MIN_TEMP) / RANGE_TEMP * innerRectHeight;//inner的起始Y坐标
 
         //画最外层的圆头矩形
-        canvas.drawRoundRect(CircleCenterX - outerRectRadius, outerStartY, CircleCenterX + outerRectRadius, CircleCenterY, outerRectRadius, outerRectRadius, outerPaint);
+        RectF outerRect=new RectF();
+        outerRect.left = CircleCenterX - outerRectRadius;
+        outerRect.top = outerStartY;
+        outerRect.right=CircleCenterX + outerRectRadius;
+        outerRect.bottom = CircleCenterY;
+        canvas.drawRoundRect(outerRect, outerRectRadius, outerRectRadius, outerPaint);
+
         //画最外层的圆
         canvas.drawCircle(CircleCenterX, CircleCenterY, outerCircleRadius, outerPaint);
 
         //画中间层的圆头矩形
-        canvas.drawRoundRect(CircleCenterX - middleRectRadius, middleStartY, CircleCenterX + middleRectRadius, CircleCenterY, middleRectRadius, middleRectRadius, middlePaint);
+        RectF middleRect = new RectF();
+        middleRect.left = CircleCenterX - middleRectRadius;
+        middleRect.top = middleStartY;
+        middleRect.right=CircleCenterX + middleRectRadius;
+        middleRect.bottom = CircleCenterY;
+        canvas.drawRoundRect(middleRect, middleRectRadius, middleRectRadius, middlePaint);
         //画中间层的圆
         canvas.drawCircle(CircleCenterX, CircleCenterY, middleCircleRadius, middlePaint);
 
